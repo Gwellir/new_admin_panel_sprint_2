@@ -1,2 +1,7 @@
-django==4.0.4
-uwsgi==2.0.20
+django==4.2.4
+django-split-settings==1.2.0
+frozendict==2.3.8
+psycopg2-binary==2.9.6
+python-dateutil==2.8.2
+python-dotenv==1.0.0
+uwsgi==2.0.22
