@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.10
 
 WORKDIR /opt/app
 
@@ -18,11 +18,9 @@ RUN  mkdir -p /var/www/static/ \
      && mkdir -p /opt/app/static/ \
      && mkdir -p /opt/app/media/ \
      && apt-get update \
-     && apt-get install -y gettext build-essential \
+     && apt-get install -y gettext \
      && pip install --upgrade pip \
      && pip install -r requirements.txt \
-     && apt-get remove -y build-essential \
-     && apt-get autoremove -y \
      && apt-get clean
 
 COPY . .

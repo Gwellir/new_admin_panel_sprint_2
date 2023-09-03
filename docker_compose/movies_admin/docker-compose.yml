@@ -12,6 +12,7 @@ services:
       - .env.docker
     volumes:
       - ./data/static:/opt/app/static
+      - ./fixtures:/opt/app/fixtures
 
   nginx:
     image: nginx:latest
