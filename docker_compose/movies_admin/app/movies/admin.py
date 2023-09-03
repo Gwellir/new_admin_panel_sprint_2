@@ -31,7 +31,7 @@ class PersonAdmin(admin.ModelAdmin):
     """Административная модель для Персоны."""
 
     list_display = ('full_name', 'created_at', 'updated_at')
-    list_filter = ('film_works__role', )
+    list_filter = ('personfilmwork__role', )
     search_fields = ('full_name', 'id')
 
 
@@ -47,5 +47,5 @@ class FilmWorkAdmin(admin.ModelAdmin):
     list_display = (
         'title', 'type', 'creation_date', 'rating', 'created_at', 'updated_at',
     )
-    list_filter = ('type', 'genres__genre')
+    list_filter = ('type', 'genres__name')
     search_fields = ('title', 'description', 'id')
