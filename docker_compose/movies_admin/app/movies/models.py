@@ -87,6 +87,16 @@ class FilmWork(UUIDMixin, TimeStampedMixin):
         max_length=50,
         db_index=True,
     )
+    genres = models.ManyToManyField(
+        Genre,
+        through='GenreFilmWork',
+        related_name='film_works',
+    )
+    persons = models.ManyToManyField(
+        Person,
+        through='PersonFilmWork',
+        related_name='film_works',
+    )
 
     class Meta:
         db_table = 'content\".\"film_work'
@@ -117,7 +127,6 @@ class PersonFilmWork(UUIDMixin):
         'Person',
         null=True,
         on_delete=models.DO_NOTHING,
-        related_name='film_works',
     )
     role = models.CharField(
         _('role'),
@@ -150,7 +159,6 @@ class GenreFilmWork(UUIDMixin):
     film_work = models.ForeignKey(
         'FilmWork',
         on_delete=models.CASCADE,
-        related_name='genres',
     )
     genre = models.ForeignKey('Genre', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
