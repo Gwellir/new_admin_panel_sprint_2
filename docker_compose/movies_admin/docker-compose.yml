@@ -3,13 +3,13 @@ services:
   service:
     build: app
     container_name: service
+    env_file:
+      - .env
     expose:
       - "8000"
     command: bash run_uwsgi.sh
     depends_on:
       - postgres
-    env_file:
-      - .env.docker
     volumes:
       - ./data/static:/opt/app/static
       - ./fixtures:/opt/app/fixtures
@@ -31,13 +31,13 @@ services:
   postgres:
     image: postgres:13
     container_name: postgres
-    restart: always
+    env_file:
+      - .env
     environment:
-      - POSTGRES_PASSWORD=123qwe
-      - POSTGRES_USER=app
-      - POSTGRES_DB=movies_database
-    ports:
-      - "5432:5432"
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_NAME}
+    restart: always
     volumes:
       - pgdata:/var/lib/postgresql/data
 
