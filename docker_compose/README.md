@@ -7,11 +7,26 @@
 Перейдите в папку `docker_compose/movies_admin` и выполните `docker compose up -d`.
 Будет создан образ докера для основного скрипта для работы с админкой кинопроизведений,
 в нём будет установлен gettext и выполнена компиляция .po файлов, для настройки параметров используется
-файл .env.docker. В этом варианте поднимается 
+файл .env.
 
-Теперь Вы можете запустить `docker exec -it service python manage.py loaddata /opt/app/fixtures/fixture.json`.
-Дождитесь завершения загрузки фикстуры с данными по кинопроизведениям в БД. Учетная запись admin:admin
-также будет создана.
+Переменные окружения для подключения к базе данных описаны в файле .env.example
+Не забудьте сформировать полный .env файл в папке с файлами compose.
+
+Пример дополнительной настройки для проверочного подключения:
+```
+DB_NAME=movies_database
+DB_USER=app
+DB_PASSWORD=123qwe
+SECRET_KEY=django-insecure-zlqy)&i@b^t4gt5!i#q)z^4(r&vg%x0ccgg_u$4($xnj($gueg
+DJANGO_SUPERUSER_PASSWORD=admin
+DJANGO_SUPERUSER_USERNAME=admin
+DJANGO_SUPERUSER_EMAIL=admin@localhost
+```
+
+Теперь, для заполнения БД проверочными данными вы можете запустить 
+`docker exec -it service python manage.py loaddata /opt/app/fixtures/fixture.json`.
+Дождитесь завершения загрузки фикстуры с данными по кинопроизведениям в БД. Суперпользовательская запись admin:admin
+также будет внесена в базу.
 
 После этого админка с записями должна стать доступна на локальном хосте по адресу http://localhost/admin/
 
@@ -29,7 +44,7 @@
 Админка с API в этой конфигурации запускаются в другом контейнере service-debug.
 
 Если шаги по наполнению БД данными ещё не были выполнены - запустите `docker exec -it service python manage.py loaddata /opt/app/fixtures/fixture.json`.
-Дождитесь завершения загрузки фикстуры с данными по кинопроизведениям в БД. Учетная запись admin:admin
+Дождитесь завершения загрузки фикстуры с данными по кинопроизведениям в БД. Суперпользовательская запись admin:admin
 также будет создана.
 
 Теперь кроме указанных выше эндпоинтов станет доступен swagger-ui на http://localhost:8080/. Данные по
